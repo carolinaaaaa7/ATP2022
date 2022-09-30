@@ -3,7 +3,7 @@
 import random 
 acertou = False
 contador = 0 
-numero = random.randrange(0,100)
+numero = random.randrange(0,101)
 while not acertou:
     tentativa = int(input ("Qual o número em que estou a pensar?"))
     if tentativa == numero:
@@ -13,7 +13,7 @@ while not acertou:
     else:
         print ("Escolheste o " + str(tentativa) + ". Tenta com um mais alto!")
     contador = contador + 1 
-print ( "Bravo! Conseguiste acertar após " + str(contador) + " tentativas!")
+print ( "SLAYYY! Conseguiste acertar após " + str(contador) + " tentativas!")
 
 
 
@@ -23,26 +23,18 @@ print ( "Bravo! Conseguiste acertar após " + str(contador) + " tentativas!")
 import random
 contador = 0 
 acertou = False
-sem_adivinhar=0
 numero = int(input ("Número a adivinhar"))
 minimo = 0
-maximo = 100
+maximo = 101
 while not acertou:
     tentativa = (random.randrange(minimo,maximo))
     if tentativa == numero:
         acertou = True
     elif tentativa > numero:
         print ("Escolheste o " + str(tentativa) + ". Tenta com um mais baixo!")
-        maximo = tentativa -1
-        if maximo==minimo:
-            sem_adivinhar=1
-            acertou=True
+        maximo = tentativa
     else:
         print ("Escolheste o " + str(tentativa) + ". Tenta com um mais alto!")
         minimo = tentativa +1
-        if maximo==minimo:
-            sem_adivinhar=1
-            acertou=True
     contador = contador + 1
-total_geral = contador + sem_adivinhar
-print ( "Bravo! Conseguiste acertar no número " + str(numero) + " após " + str(total_geral) + " tentativas!")
+print ( "SLAYYY! Conseguiste acertar no número " + str(numero) + " após " + str(contador) + " tentativas!")
