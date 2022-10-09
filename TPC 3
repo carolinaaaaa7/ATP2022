@@ -1,0 +1,122 @@
+from operator import le
+import random
+import os
+#1
+def criar_lista ():
+    lista = [] 
+    numero_elementos= random.randrange(0,11)
+    for elem in range (numero_elementos ):
+        lista.append (random.randrange(0,11))
+    return lista
+
+#2
+def le_lista():
+    lista = []
+    nelem = int (input ("\nNúmero de elementos da lista: "))
+
+    num = 1
+    while num <= nelem:
+        lista.append (int(input("Introduza o elemento " + str(num) + ": ")))
+        num = num + 1
+    return lista 
+
+#3
+def soma_lista(lista):
+    soma = 0
+    for n in lista:
+        soma = soma + n
+    return soma
+
+#4
+def media_lista(lista):
+    soma = 0
+    for n in lista:
+        soma = soma + n
+    return soma/ len(lista)
+
+#5
+def maior_lista(lista):
+    maior = lista[0]
+    for n in lista[1:]:
+        if n > maior:
+            maior = n
+    return maior
+
+#6
+def menor_lista(lista):
+    menor = lista[0]
+    for n in lista[1:]:
+        if n < menor:
+            menor = n
+    return menor
+
+#7 
+def esta_crescente(lista):
+    res = "está ordenada por ordem crescente"
+    for indice in range (len(lista) -1):
+        if lista[indice] > lista [indice + 1]:
+            res = "não está ordenada por ordem crescente"
+    return res
+
+#8
+def esta_decrescente (lista):
+    res = "está ordenada por ordem decrescente"
+    for indice in range (len(lista) -1):
+        if lista[indice] < lista [indice + 1]:
+            res = "não está ordenada por ordem decrescente"
+    return res
+
+#9
+def posicao_elemento(lista, elem):
+    res= "Esse elemento não está na lista."
+    if elem in lista:
+        res = lista.index (elem)
+    return res
+
+
+
+opcao=11
+lista=criar_lista()
+while opcao != 0:
+        
+    print ("""
+    (1) Criar Lista
+    (2) Ler Lista
+    (3) Soma
+    (4) Média
+    (5) Maior
+    (6) Menor
+    (7) estaOrdenada por ordem crescente
+    (8) estaOrdenada por ordem decrescente
+    (9) Procura um elemento
+    (0) Sair\n""")
+    opcao = int(input("Escolha a opção: "))
+        
+    if opcao == 1:
+        lista=criar_lista()
+        print ("\nO numero de elementos é: " , len(lista))
+    elif opcao == 2:
+        lista = le_lista()
+    elif opcao == 3:
+        print ("\nA soma da sua lista é:", soma_lista(lista))
+    elif opcao == 4:
+        print ("\nA média da lista é: " , media_lista(lista))
+    elif opcao == 5:
+        print ("\nO maior elemento da lista é: " , maior_lista(lista))
+    elif opcao == 6:
+        print ("\nO menor elemento da lista é: " , menor_lista(lista))
+    elif opcao == 7:
+        print ("\nA sua lista " , esta_crescente(lista))
+    elif opcao == 8:
+        print ("\nA sua lista " , esta_decrescente (lista))
+    elif opcao == 9:
+        elem = int(input("\nQue elemento pretende procurar? "))
+        print ("A posição do elemento ", elem, " é: " , posicao_elemento(lista,elem))
+    elif opcao == 0:
+        print ("A sua lista é", lista,"\n")
+        break
+    else:
+        print ("\nComando não aceite, tente novamente.")
+    print ("A sua lista é", lista,"\n")
+    input("Tecla «ENTER» para continuar...")
+    os.system("cls")
