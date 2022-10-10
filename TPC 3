@@ -4,9 +4,9 @@ import os
 #1
 def criar_lista ():
     lista = [] 
-    numero_elementos= random.randrange(0,11)
+    numero_elementos= random.randrange(0,101)
     for elem in range (numero_elementos ):
-        lista.append (random.randrange(0,11))
+        lista.append (random.randrange(0,101))
     return lista
 
 #2
