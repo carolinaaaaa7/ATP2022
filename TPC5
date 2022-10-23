@@ -1,0 +1,190 @@
+import os 
+
+def menu():
+    print ("""
+    ------------------------------
+    |    Menu Principal          |
+    ------------------------------
+    (1) Listar Utentes
+    (2) Distribuição por Sexo
+    (3) Distribuição por Idade
+    (4) Distribuição por Níveis de Tensão
+    (5) Distribuição por Níveis de Colesterol
+    (6) Distribuição por Batimentos Cardíacos
+    (0) Sair
+    ----------------------
+    """)
+    
+    def distrib_sexo (lista):
+    distrib = {}
+    for utente in lista:
+        if utente[1] == "M":
+            if utente[5]:
+                if 'McD' in distrib:
+                    distrib['McD'] = distrib ['McD'] +1
+                else:
+                    distrib['McD'] = 1
+            else:
+                if 'MsD' in distrib:
+                    distrib['MsD'] = distrib ['MsD'] +1
+                else:
+                    distrib['MsD'] = 1
+
+        else:
+            if utente [5]:
+                if "FcD" in distrib:
+                    distrib["FcD"] = distrib ["FcD"] +1
+                else:
+                    distrib["FcD"] = 1
+            else:
+                if "FsD" in distrib:
+                    distrib["FsD"] = distrib ["FsD"] +1
+                else:
+                    distrib["FsD"] = 1
+                
+    return distrib
+
+def listar_sexo (lista):
+    d = {}
+    for elemento in lista:
+        _, sexo, _ , _, _, temDoenca = elemento
+        intervalo = "[ " + sexo + " ]"
+        i = 0 if temDoenca else 1
+        if intervalo in d:
+            d[intervalo][i] += 1
+        else: 
+            d[intervalo]= [0,0] 
+            d[intervalo][i]= 1
+    return d
+
+def listar_idade (lista):
+    amplitude = int(input("\n    Amplitude dos intervalos: "))
+    d = {}
+    for elemento in lista:
+        idade, _, _ , _, _, temDoenca = elemento
+
+        min = (idade//amplitude) * amplitude
+        max = min + amplitude -1
+        intervalo = "[ " + str(min).rjust(3, "0") + "-" + str(max).rjust(3, "0") + " ]"
+        i = 0 if temDoenca else 1
+        if intervalo in d:
+            d[intervalo][i] += 1
+        else: 
+            d[intervalo]= [0,0] 
+            d[intervalo][i]= 1
+    return d
+
+def listar_tensao (lista):
+    amplitude = int(input("\n    Amplitude dos intervalos: "))
+    d = {}
+    for elemento in lista:
+        _, _, tensão, _, _, temDoenca = elemento
+
+        min = (tensão//amplitude) * amplitude
+        max = min + amplitude -1
+        intervalo = "[ " + str(min).rjust(3, "0") + "-" + str(max).rjust(3, "0") + " ]"
+        i = 0 if temDoenca else 1
+        if intervalo in d:
+            d[intervalo][i] += 1
+        else: 
+            d[intervalo]= [0,0] 
+            d[intervalo][i]= 1
+    return d
+
+def listar_batimento (lista):
+    amplitude = int(input("\n    Amplitude dos intervalos: "))
+    d = {}
+    for elemento in lista:
+        _, _, _ , _, batimento, temDoenca = elemento
+
+        min = (batimento//amplitude) * amplitude
+        max = min + amplitude -1
+        intervalo = "[ " + str(min).rjust(3, "0") + "-" + str(max).rjust(3, "0") + " ]"
+        i = 0 if temDoenca else 1
+        if intervalo in d:
+            d[intervalo][i] += 1
+        else: 
+            d[intervalo]= [0,0] 
+            d[intervalo][i]= 1
+    return d
+ 
+def listar_colesterol (lista):
+    amplitude = int(input("\n    Amplitude dos intervalos: "))
+    d = {}
+    for elemento in lista:
+        _, _, _ , colesterol, _, temDoenca = elemento
+
+        min = ((colesterol//amplitude) * amplitude)
+        max = (min + amplitude -1)
+        max = min + amplitude -1
+        intervalo = "[ " + str(min).rjust(3, "0") + "-" + str(max).rjust(3, "0") + " ]"
+        i = 0 if temDoenca else 1
+        if intervalo in d:
+            d[intervalo][i] += 1
+        else: 
+            d[intervalo]= [0,0] 
+            d[intervalo][i]= 1
+    return d
+
+def listar_utentes_por_pagina(lista_utentes): 
+    linha = 1
+    print_cabeçalho = True
+    for elemento in lista_utentes:
+        if print_cabeçalho:
+            os.system("cls")
+            print ("""
+    -----------------------------------------------------------------------------------
+    |                             LISTAGEM DE UTENTES                                 |
+    -----------------------------------------------------------------------------------
+    | Idade    Sexo      Tensão      Colestrol   Batimentos      Doente?      (Linha) |
+    -----------------------------------------------------------------------------------""")
+            print_cabeçalho = False
+        idade, sexo, tensao, colesterol, batimento, temDoença = elemento
+        print(f"       {idade:>3}       {sexo}        {tensao:>4}         {colesterol:>4}         {batimento:>4}          {temDoença!s:>5}        {linha:>4}")
+        if linha % 20 == 0:
+            opcao = input("\n    [ Tecla 'p' para PARAR.   Qualquer outra para continuar. ]")
+            if opcao=="p":
+                return
+            print_cabeçalho = True
+        linha = linha + 1  
+
+
+def imprimir_tabela (dicionario, titulo):
+    
+
+    print ("""
+    -----------------------------------------------------------------------------------------""")
+    print ( "                                DISTRIBUIÇÃO DA DOENÇA POR " + str(titulo) + "                ")
+    print("""    -----------------------------------------------------------------------------------------
+    | Grupo          Com doença              Sem Doença                   Total             |
+    -----------------------------------------------------------------------------------------""")
+    dicionario = dict( sorted (dicionario.items()))
+    for intervalo, valores in dicionario.items():
+        print(f"      {intervalo:<15} {valores[0]:<15}        {valores[1]:>7}                        {(valores[0]+valores[1]):<15} ")
+
+    
+
+opcao = "1"
+os.system("cls")
+lista_utentes = leitura_ficheiro ("myheart.csv")
+while opcao != "0":
+    menu()
+    opcao = input ("    Introduza uma opção: ")
+    if opcao == "1":
+        listar_utentes_por_pagina( lista_utentes)
+    elif opcao == "2":
+        imprimir_tabela (listar_sexo(lista_utentes), "SEXO")
+    elif opcao == "3":
+        imprimir_tabela(listar_idade(lista_utentes), "IDADE")
+    elif opcao == "4":
+        imprimir_tabela (listar_tensao (lista_utentes), "TENSÃO")
+    elif opcao == "5":
+        imprimir_tabela (listar_colesterol(lista_utentes), "COLESTEROL")
+    elif opcao == "6":
+        imprimir_tabela (listar_batimento(lista_utentes), "BATIMENTOS")
+    elif opcao== "0":
+        break
+    else:
+        print ("\n    [ ERRO: Comando não aceite, tente novamente. ]")
+    input("\n    [ Tecla «ENTER» para continuar... ]")
+    os.system("cls")
