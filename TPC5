@@ -15,6 +15,27 @@ def menu():
     ----------------------
     """)
     
+    
+    def leitura_ficheiro (ficheiro):
+    clinica = []
+    fclinica = open(ficheiro)
+    next (fclinica)
+    for linha in fclinica:
+        utente= tuple(linha[:-1].split (","))
+        #linha[:-1] elimina o ultimo caracter da linha (o espaço- \n). tambem podia usar o strip, que tira os espaços
+        idade, sexo, tensao, colesterol, batimento, tem_doenca = utente
+        idade = int(idade)
+        tensao = int(tensao)
+        colesterol = int(colesterol)
+        batimento = int (batimento)
+        tem_doenca= bool(int(tem_doenca))
+        clinica.append((idade, sexo, tensao, colesterol, batimento, tem_doenca))
+        #o append so leva um argumento, um tuplo, logo pomos os parametyros idade, sexo.... entre ()-- como se fosse o utente!!
+    fclinica.close()
+    print ("\n    [ Ficheiro RECUPERADO com sucesso. Total de UTENTES =",len(clinica),"]" )
+    return clinica
+
+    
     def distrib_sexo (lista):
     distrib = {}
     for utente in lista:
